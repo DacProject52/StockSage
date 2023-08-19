@@ -1,0 +1,96 @@
+CREATE TABLE USERINFO (
+UID VARCHAR(50) PRIMARY KEY,
+NAME VARCHAR(50) NOT NULL,
+CONTACT VARCHAR(20),
+EMAIL VARCHAR(50) NOT NULL,
+PASSWORD VARCHAR(20) NOT NULL,
+CREATETIME DATETIME DEFAULT(NOW())
+);
+
+
+=====================================================================INSERT table for trigger====================================================================================
+
+CREATE TABLE USERINSERTSHADOW (
+UID VARCHAR(50) ,
+NAME VARCHAR(50) NOT NULL,
+CONTACT VARCHAR(20),
+EMAIL VARCHAR(50) NOT NULL,
+PASSWORD VARCHAR(20) NOT NULL,
+INSERTTIME DATETIME DEFAULT(NOW())
+);
+
+
+=====================================================================update table for trigger====================================================================================
+
+CREATE TABLE USERUPDATESHADOW(
+UID VARCHAR(50),
+NAME VARCHAR(50), 
+CONTACT VARCHAR(20), 
+EMAIL VARCHAR(50), 
+PASSWORD VARCHAR(20),
+NEWNAME VARCHAR(50), 
+NEWCONTACT VARCHAR(20), 
+NEWEMAIL VARCHAR(50), 
+NEWPASSWORD VARCHAR(20),
+CURRENTUSER VARCHAR(50),
+CREATETIME VARCHAR(20) DEFAULT(NOW())
+);
+
+
+
+ 
+
+=====================================================================INSERT PROCEDURE====================================================================================
+
+DELIMITER //
+CREATE PROCEDURE USERINSERTPROCE(IN UID VARCHAR(50), IN NAME VARCHAR(50), IN CONTACT VARCHAR(20), IN EMAIL VARCHAR(50), IN PASSWORD VARCHAR(20))
+BEGIN
+ INSERT INTO USERINFO( UID, NAME, CONTACT, EMAIL, PASSWORD) VALUES(UID, NAME, CONTACT, EMAIL, PASSWORD) ;
+END;
+//
+DELIMITER ; 
+
+
+=====================================================================UPDATE PROCEDURE====================================================================================
+
+DELIMITER //
+CREATE PROCEDURE USERUPDATEPROCE(IN ID VARCHAR(50), IN UNAME VARCHAR(50), IN UCONTACT VARCHAR(20), IN UEMAIL VARCHAR(50), IN UPASSWORD VARCHAR(20))
+BEGIN
+ UPDATE USERINFO SET NAME = UNAME, CONTACT = UCONTACT, EMAIL = UEMAIL, PASSWORD = UPASSWORD where UID = ID;
+END;
+//
+DELIMITER ;
+
+
+=====================================================================INSERT TRIGGER====================================================================================
+
+DELIMITER //
+CREATE TRIGGER INFOUSERINSERT
+AFTER INSERT
+ON USERINFO FOR EACH ROW
+BEGIN
+  INSERT INTO USERINSERTSHADOW(UID, NAME, CONTACT, EMAIL, PASSWORD) VALUES (new.UID, new.NAME, new.CONTACT, new.EMAIL, new.PASSWORD);
+END;
+//
+DELIMITER ;
+
+=====================================================================UPDATE TRIGGER====================================================================================
+
+DELIMITER //
+CREATE TRIGGER INFOUSERUPDATE
+AFTER UPDATE
+ON USERINFO FOR EACH ROW
+BEGIN
+ INSERT INTO USERUPDATESHADOW( UID, NAME,NEWNAME, CONTACT, NEWCONTACT, EMAIL,NEWEMAIL, PASSWORD,NEWPASSWORD,CURRENTUSER) VALUES( new.UID, old.NAME, new.NAME, old.CONTACT, new.CONTACT, old.EMAIL, new.EMAIL, old.PASSWORD, new.PASSWORD,user()); 
+END;
+//
+DELIMITER ; 
+
+
+
+
+
+
+
+
+ 
