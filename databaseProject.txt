@@ -7,8 +7,7 @@ NAME VARCHAR(50) NOT NULL,
 CONTACT VARCHAR(20),
 EMAIL VARCHAR(50) NOT NULL,
 PASSWORD VARCHAR(20) NOT NULL,
-CREATETIME DATETIME DEFAULT(NOW())
-);
+CREATETIME DATETIME DEFAULT(NOW()));
 
 
 =====================================================================INSERT table for trigger====================================================================================
