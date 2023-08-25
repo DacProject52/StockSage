@@ -1,11 +1,11 @@
-import { React, useRef, useEffect } from "react";
+import { React, useRef, useEffect, useState } from "react";
 import { ColorType, createChart } from "lightweight-charts";
 // import { data } from "jquery";
 function CandlestickGraph() {
 
     const chartContainerRef = useRef();
 
-    useEffect(() => {
+    useState(() => {
 
         let StockSymbol = "BHEL";
         const API_KEY = "NZN41D9WW5X46MPB";

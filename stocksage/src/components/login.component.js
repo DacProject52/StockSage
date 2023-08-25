@@ -36,9 +36,14 @@ export default class Login extends Component{
             </div>
 
 
-            <div className="form-group" >
-            <button className="btn btn-primary btn-block">Login</button>
+            <div className="d-grid gap-2" >
+             <br/>
+            <button variant="primary" size="lg">Login</button>
             </div>
+
+            <p className="forgot-password text-left">
+            <Link to={'/'}>Home</Link>
+            </p>
 
             <p className="forgot-password text-right">
                 <Link to={'/forgot'}>Forgot Password?</Link>

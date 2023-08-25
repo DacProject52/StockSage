@@ -9,7 +9,8 @@ import Register from './components/register.component';
 import LineGraph from './components/LineGraph';
 import CandlestickGraph from './components/CandlesticksGraph';
 import Forgot from './components/forgot.component';
-import Header from './components/header.component';
+import { Card, Button } from 'react-bootstrap';
+
 
 
 function App() {
@@ -17,14 +18,17 @@ function App() {
     
     <BrowserRouter>
     
-    <div className="App">
-      <Header />
-      <Nav />
+    <div className="container">
+      <Card>
+      <Card.Header>
+        <h1>StockSage: Unveiling The Market Trends</h1>
+      </Card.Header>
+      
 
       <div className="auth-wrapper">
            
 
-
+        <Card.Body>
         <div className="auth-inner">
         <Routes>
           
@@ -32,13 +36,20 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/linegraph' element={<LineGraph />} />
+          {/* <Route path='/linegraph' element={{< />} /> */}
           <Route path='/candlestickgraph' element={<CandlestickGraph />} />
           <Route path='/forgot' element={<Forgot />} />
-        </Routes>
           
+        </Routes>
+        
         </div>
+        </Card.Body>
+        <Card.Footer>
+          <h1>Created By Mohit And Ashu</h1>
+        </Card.Footer>
       </div>
+      
+      </Card>
     </div>
     </BrowserRouter>
     
