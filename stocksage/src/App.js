@@ -6,6 +6,8 @@ import Nav from './components/nav.component';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from './components/login.component';
 import Register from './components/register.component';
+import LineGraph from './components/LineGraph';
+import CandlestickGraph from './components/CandlesticksGraph';
 import Forgot from './components/forgot.component';
 import Header from './components/header.component';
 
@@ -30,6 +32,8 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/linegraph' element={<LineGraph />} />
+          <Route path='/candlestickgraph' element={<CandlestickGraph />} />
           <Route path='/forgot' element={<Forgot />} />
         </Routes>
           
