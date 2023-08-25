@@ -14,6 +14,7 @@ import { Card, Button } from 'react-bootstrap';
 
 
 function App() {
+
   return (
     
     <BrowserRouter>
@@ -36,7 +37,6 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
-          {/* <Route path='/linegraph' element={{< />} /> */}
           <Route path='/candlestickgraph' element={<CandlestickGraph />} />
           <Route path='/forgot' element={<Forgot />} />
           

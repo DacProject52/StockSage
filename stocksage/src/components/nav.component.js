@@ -5,7 +5,6 @@ export default class Nav extends Component {
   render() {
     return (
       <>
-
         <nav className="navbar navbar-expand navbar-light fixed-top">
           <div>
             <img src='/logo1' alt='logo' width="40" height='40' className='d-inline-block align-top' />
