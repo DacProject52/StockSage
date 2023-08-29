@@ -1,9 +1,20 @@
 import { React, useRef, useEffect, useState } from "react";
 import { ColorType, createChart } from "lightweight-charts";
+import SimpleMovingAverage from './Indicators.js';
+
 // import { data } from "jquery";
 function CandlestickGraph() {
 
     const chartContainerRef = useRef();
+
+    function smaGenerator(dataArray, numberOfCandles, colour, chartVar) {
+        let newCData = SimpleMovingAverage(dataArray, numberOfCandles);
+        const smaSeries = chartVar.addLineSeries({ color: colour, lineWidth: 1 });
+        const smaData = newCData
+            .filter((data) => data.sma)
+            .map((data) => ({ time: data.time, value: data.sma }));
+        smaSeries.setData(smaData);
+    }
 
     useState(() => {
 
@@ -35,8 +46,6 @@ function CandlestickGraph() {
 
                     cdata.sort((a, b) => a.time.localeCompare(b.time));
 
-                    console.log(cdata);
-
                     const chart = createChart(chartContainerRef.current, {
                         layout: {
                             background: { type: ColorType.Solid, color: "white" }
@@ -55,6 +64,10 @@ function CandlestickGraph() {
                     });
 
                     newSeries.setData(cdata);
+
+                    smaGenerator(cdata, 20, "red", chart);
+
+                    smaGenerator(cdata, 50, "blue", chart);
 
                     return () => {
                         chart.remove();
