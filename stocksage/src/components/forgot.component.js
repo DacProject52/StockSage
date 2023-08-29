@@ -1,4 +1,5 @@
 import React,{Component} from "react";
+import Userfront from "@userfront/core";
 
 export default class Forgot extends Component{
     handleSubmit = e =>{
@@ -19,9 +20,10 @@ export default class Forgot extends Component{
                 onChange={e => this.email = e.target.value}/>
             </div>
 
-                       
+             <br />          
             <button className="btn btn-primary btn-block">Submit</button>
         </form>
         )
     }
+    
 }

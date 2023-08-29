@@ -1,12 +1,13 @@
-import React,{Component} from "react";
-import {Link} from "react-router-dom";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
-export default class Login extends Component{
+export default class Login extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
 
-        const data ={
+        const data = {
             email: this.email,
             password: this.password
         }
@@ -14,41 +15,43 @@ export default class Login extends Component{
         console.log(data);
     };
 
-    render(){
+    render() {
         return (
             <form onSubmit={this.handleSubmit}>
-            <h3>Login</h3>
-
-           
-
-            <div className="form-group" >
-                <label>Email</label>
-
-                <input type="email" className="form-control" placeholder="Email"
-                onChange={e => this.email = e.target.value}/>
-            </div>
-
-            <div className="form-group" >
-                <label>Password</label>
-
-                <input type="password" className="form-control" placeholder="Password"
-                onChange={e => this.password = e.target.value}/>
-            </div>
+                <h3>Login</h3>
 
 
-            <div className="d-grid gap-2" >
-             <br/>
-            <button variant="primary" size="lg">Login</button>
-            </div>
 
-            <p className="forgot-password text-left">
-            <Link to={'/'}>Home</Link>
-            </p>
+                <div className="form-group" >
+                    <label>Email</label>
 
-            <p className="forgot-password text-right">
-                <Link to={'/forgot'}>Forgot Password?</Link>
-            </p>
-        </form>
+                    <input type="email" className="form-control" placeholder="Email"
+                        onChange={e => this.email = e.target.value} />
+                </div>
+
+                <div className="form-group" >
+                    <label>Password</label>
+
+                    <input type="password" className="form-control" placeholder="Password"
+                        onChange={e => this.password = e.target.value} />
+                </div>
+
+
+                <div className="d-grid gap-2">
+                    <br/>
+                    <Button variant="primary" size="lg">
+                        Login
+                    </Button>
+                </div>
+
+                <p className="forgot-password text-left">
+                    <Link to={'/'}>Home</Link>
+                </p>
+
+                <p className="forgot-password text-right">
+                    <Link to={'/forgot'}>Forgot Password?</Link>
+                </p>
+            </form>
         )
     }
 }

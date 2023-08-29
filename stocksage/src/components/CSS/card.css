@@ -1,0 +1,6 @@
+.cardsize{
+    /* width: fit-content; */
+    display: flexbox;
+    grid-column: span 12;
+    grid-row: span 3;
+}
