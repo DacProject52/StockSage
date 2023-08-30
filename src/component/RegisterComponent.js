@@ -9,8 +9,55 @@ const RegisterComponent = () => {
      const [lastname, setlast] = useState('')
      const [email, setemail] = useState('')
      const [contact, setcontact] = useState('')
-      const [password, setpassword] = useState('')
+     const [password, setpassword] = useState('')
      const [confirmpassword, setconfirmpassword] = useState('')
+
+     const [lowerValidated, setLowerValidated]=useState(false);
+     const [upperValidated, setUpperValidated]=useState(false);
+     const [numberValidated, setNumberValidated]=useState(false);
+     const [specialValidated, setSpecialValidated]=useState(false);
+     const [lengthValidated, setLengthValidated]=useState(false);
+
+
+
+     const handleValidation=(value)=>{
+        const lower = new RegExp('(?=.*[a-z])');
+        const upper = new RegExp('(?=.*[A-Z])');
+        const number = new RegExp('(?=.*[0-9])');
+        const special = new RegExp('(?=.*[!@#\$%\^&\*])');
+        const length = new RegExp('(?=.{8,})')
+      
+        if(lower.test(value)){
+          setLowerValidated(true);
+        }
+        else{
+          setLowerValidated(false);
+        }
+        if(upper.test(value)){
+          setUpperValidated(true);
+        }
+        else{
+          setUpperValidated(false);
+        }
+        if(number.test(value)){
+          setNumberValidated(true);
+        }
+        else{
+          setNumberValidated(false);
+        }
+        if(special.test(value)){
+          setSpecialValidated(true);
+        }
+        else{
+          setSpecialValidated(false);
+        }
+        if(length.test(value)){
+          setLengthValidated(true);
+        }
+        else{
+          setLengthValidated(false);
+        }
+      }
 
      const saveUser=(e) =>{
         e.preventDefault();
@@ -23,14 +70,6 @@ const RegisterComponent = () => {
         })
      }
 
-
-      const [lowerValidated, setLowerValidated]=useState(false);
-  const [upperValidated, setUpperValidated]=useState(false);
-  const [numberValidated, setNumberValidated]=useState(false);
-  const [specialValidated, setSpecialValidated]=useState(false);
-  const [lengthValidated, setLengthValidated]=useState(false);
-
-   
     return (
         <form >
             <h3>Sign Up</h3>
@@ -70,50 +109,12 @@ const RegisterComponent = () => {
             </div>
 
             <div className="form-group" >
-                <label>Password</label>
+    <label>Password</label>
 
-                <input type="password" className="form-control" placeholder="Password"
-                 onChange={(e) => setpassword((value)=>{
-                  const lower = new RegExp('(?=.*[a-z])');
-                  const upper = new RegExp('(?=.*[A-Z])');
-                  const number = new RegExp('(?=.*[0-9])');
-                  const special = new RegExp('(?=.*[!@#\$%\^&\*])');
-                  const length = new RegExp('(?=.{8,})')
-                
-                  if(lower.test(value)){
-                    setLowerValidated(true);
-                  }
-                  else{
-                    setLowerValidated(false);
-                  }
-                  if(upper.test(value)){
-                    setUpperValidated(true);
-                  }
-                  else{
-                    setUpperValidated(false);
-                  }
-                  if(number.test(value)){
-                    setNumberValidated(true);
-                  }
-                  else{
-                    setNumberValidated(false);
-                  }
-                  if(special.test(value)){
-                    setSpecialValidated(true);
-                  }
-                  else{
-                    setSpecialValidated(false);
-                  }
-                  if(length.test(value)){
-                    setLengthValidated(true);
-                  }
-                  else{
-                    setLengthValidated(false);
-                  }
-                })
-              }/>
-            </div>
-            <div>
+    <input type="password" className="form-control" placeholder="Password"
+    onChange={(e) => setpassword(e.target.value)}  onKeyUp={(e) => handleValidation(e.target.value)}/>
+</div>
+<div>
      <main>
      <div className={lowerValidated?'validated':'not-validated'}>
             {lowerValidated?(
@@ -182,3 +183,4 @@ const RegisterComponent = () => {
 export default RegisterComponent
         
        
+// https://github.com/DacProject52/StockSage.git
