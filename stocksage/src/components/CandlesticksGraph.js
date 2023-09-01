@@ -1,6 +1,6 @@
-import { React, useRef, useEffect, useState } from "react";
+import { React, useRef, useState } from "react";
 import { ColorType, createChart } from "lightweight-charts";
-import SimpleMovingAverage from './Indicators.js';
+import { SimpleMovingAverage, Markers } from './Indicators.js';
 
 // import { data } from "jquery";
 function CandlestickGraph() {
@@ -14,6 +14,7 @@ function CandlestickGraph() {
             .filter((data) => data.sma)
             .map((data) => ({ time: data.time, value: data.sma }));
         smaSeries.setData(smaData);
+        return smaData;
     }
 
     useState(() => {
@@ -30,7 +31,7 @@ function CandlestickGraph() {
             .then((data) => {
                 if (data["Time Series (Daily)"]) {
                     const timeSeries = data["Time Series (Daily)"];
-                    const cdata = [];
+                    let cdata = [];
 
                     for (const time in timeSeries) {
                         if (timeSeries.hasOwnProperty(time)) {
@@ -65,9 +66,47 @@ function CandlestickGraph() {
 
                     newSeries.setData(cdata);
 
-                    smaGenerator(cdata, 20, "red", chart);
+                    var sma1 = smaGenerator(cdata, 20, "red", chart)
+                        .map((data) => ({
+                            smaSmall: data.value
+                        }));
 
-                    smaGenerator(cdata, 50, "blue", chart);
+                    var sma2 = smaGenerator(cdata, 50, "blue", chart)
+                        .map((data) => ({
+                            smaBig: data.value
+                        }));
+
+                    cdata = cdata.map((cdata, index) => ({
+                        ...cdata,
+                        ...sma1[index],
+                        ...sma2[index]
+                    }))
+
+                    cdata = Markers(cdata);
+
+                    newSeries.setMarkers(
+                        cdata
+                            .filter((cdata) => cdata.long || cdata.short)
+                            .map((cdata) => {
+                                if (cdata.long) {
+                                    return {
+                                        time: cdata._internal_originalTime,
+                                        position: 'belowBar',
+                                        color: 'green',
+                                        shape: 'arrowUp',
+                                        text: 'LONG'
+                                    };
+                                } else {
+                                    return {
+                                        time: cdata._internal_originalTime,
+                                        position: 'aboveBar',
+                                        color: 'red',
+                                        shape: 'arrowDown',
+                                        text: 'SHORT'
+                                    };
+                                }
+                            })
+                    );
 
                     return () => {
                         chart.remove();
